@@ -1,7 +1,9 @@
 from django.urls import path
 from . import views
 from django.views.generic import TemplateView
-
+from django.views.static import serve
+from django.conf.urls import url
+from django.conf import settings
 urlpatterns = [
     path('', views.home, name='home'),
     path('notes', views.notes, name='notes'),
@@ -20,4 +22,6 @@ urlpatterns = [
     path('delete_todo/<int:pk>', views.delete_todo, name='delete-todo'),
     path('update_todo/<int:pk>', views.update_todo, name='update-todo'),
     path('update_homework/<int:pk>', views.update_homework, name='update-homework'),
+    url(r'^media/(?P<path>.*)$', serve,{'document_root':       settings.MEDIA_ROOT}), 
+    url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}), 
 ]
